@@ -1,10 +1,6 @@
 {{ define "main" }}
 {{ if eq .Type "post" }}
-<article class="cactus-article">
-  <header class="cactus-article-header">{{ with .Title }}<h1 class="cactus-title cactus-article-title">{{ . }}</h1>{{ end }}<div class="cactus-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>{{ with .Params.categories }}<span aria-hidden="true">/</span><span>{{ delimit . ", " }}</span>{{ end }}</div>{{ with .Params.photos }}{{ range first 1 . }}<figure class="cactus-feature-image"><img src="{{ . }}" alt=""></figure>{{ end }}{{ end }}</header>
-  <div class="cactus-content">{{ .Content }}</div>
-  {{ with .Params.categories }}<footer class="post-tags">{{ range . }}<a href="{{ (printf "categories/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>{{ end }}</footer>{{ end }}
-</article>
+  {{ partial "article.html" . }}
 {{ else }}
   {{ partial "page-intro.html" . }}
   {{ $posts := where .Site.Pages.ByDate.Reverse "Type" "post" }}

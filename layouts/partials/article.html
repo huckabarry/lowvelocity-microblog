@@ -1,0 +1,12 @@
+<article class="cactus-article h-entry">
+  <header class="cactus-article-header">
+    {{ with .Title }}<h1 class="cactus-title cactus-article-title p-name">{{ . }}</h1>{{ end }}
+    <div class="cactus-meta">
+      <a class="u-url" href="{{ .Permalink }}"><time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date.Format "02 Jan 2006" }}</time></a>
+      {{ with .Params.categories }}<span aria-hidden="true">/</span><span>{{ delimit . ", " }}</span>{{ end }}
+    </div>
+    {{ with .Params.photos }}{{ range first 1 . }}<figure class="cactus-feature-image"><img class="u-photo" src="{{ . }}" alt=""></figure>{{ end }}{{ end }}
+  </header>
+  <div class="cactus-content e-content">{{ .Content }}</div>
+  {{ with .Params.categories }}<footer class="post-tags">{{ range . }}<a href="{{ (printf "categories/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>{{ end }}</footer>{{ end }}
+</article>
