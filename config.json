@@ -1,0 +1,11 @@
+{
+  "paginate": 25,
+  "pluralizeListTitles": false,
+  "taxonomies": { "category": "categories" },
+  "params": {
+    "description": "Travel, photography, urbanism, and notes from being out in the world.",
+    "color_scheme": "auto",
+    "accent_color": "#b7db57"
+  },
+  "markup": { "goldmark": { "renderer": { "unsafe": true } } }
+}

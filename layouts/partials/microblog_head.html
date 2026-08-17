@@ -1,0 +1,7 @@
+{{ range .AlternativeOutputFormats }}<link rel="{{ .Rel }}" href="{{ .Permalink }}" type="{{ .MediaType.Type }}" title="{{ $.Site.Title }}">{{ end }}
+<link rel="me" href="https://micro.blog/{{ .Site.Params.author.username }}">
+<link rel="authorization_endpoint" href="https://micro.blog/indieauth/auth">
+<link rel="token_endpoint" href="https://micro.blog/indieauth/token">
+<link rel="webmention" href="https://micro.blog/webmention">
+<link rel="micropub" href="https://micro.blog/micropub">
+{{ with .Site.Params.bluesky_publication }}<link rel="site.standard.publication" href="{{ . | safeURL }}">{{ end }}

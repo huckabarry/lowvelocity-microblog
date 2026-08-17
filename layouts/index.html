@@ -1,0 +1,6 @@
+{{ define "main" }}
+<header class="archive-header"><h1 class="cactus-title">Field Notes</h1><p>{{ .Site.Params.description }}</p></header>
+{{ $posts := where .Site.Pages.ByDate.Reverse "Type" "post" }}
+{{ $field := where $posts "Params.categories" "intersect" (slice "Field Notes" "Urbanism" "Housing" "Transportation" "Public Finance") }}
+<section class="cactus-section archive-section">{{ partial "post-list.html" $field }}</section>
+{{ end }}

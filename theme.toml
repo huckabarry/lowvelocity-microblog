@@ -1,0 +1,7 @@
+name = "Low Velocity"
+license = "MIT"
+description = "Low Velocity for Micro.blog"
+
+[module]
+  [module.hugoVersion]
+    min = "0.117.0"

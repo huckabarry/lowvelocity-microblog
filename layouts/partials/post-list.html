@@ -1,0 +1,2 @@
+{{ $pages := . }}
+<ul class="post-list" role="list">{{ range $pages }}<li class="post-list-item"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time><a href="{{ .Permalink }}">{{ if .Title }}{{ .Title }}{{ else }}{{ .Summary | plainify | truncate 80 }}{{ end }}</a></li>{{ else }}<li>No posts are published yet.</li>{{ end }}</ul>

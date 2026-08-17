@@ -1,0 +1,1 @@
+{{ define "main" }}<header class="archive-header"><h1 class="cactus-title">{{ .Title }}</h1></header><section class="cactus-section archive-section">{{ partial "post-list.html" .Pages.ByDate.Reverse }}</section>{{ end }}
