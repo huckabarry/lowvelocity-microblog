@@ -2,7 +2,11 @@
   <div class="cactus-brand-wrap">
     <a class="cactus-brand" href="{{ .Site.BaseURL }}" aria-label="{{ .Site.Title }}"><span class="cactus-brand-title">{{ .Site.Title }} <span aria-hidden="true">//</span></span></a>
     <nav class="cactus-nav" id="navigation-menu" aria-label="Main menu">
-      {{ range .Site.Menus.main }}{{ if .Page.Params.redirect_url }}<a href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a>{{ else }}<a href="{{ .URL | relLangURL | safeURL }}">{{ .Name }}</a>{{ end }}{{ end }}
+      {{ range .Site.Menus.main }}
+        {{ $destination := .URL }}
+        {{ with .Page }}{{ with .Params.redirect_url }}{{ $destination = . }}{{ end }}{{ end }}
+        <a href="{{ $destination | relLangURL | safeURL }}">{{ .Name }}</a>
+      {{ end }}
     </nav>
   </div>
   <div class="cactus-actions"><button class="cactus-icon-button" type="button" aria-label="Toggle color theme" data-theme-toggle>◐</button><button class="cactus-icon-button cactus-menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navigation-menu" data-menu-toggle></button></div>
