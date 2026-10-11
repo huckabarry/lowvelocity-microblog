@@ -4825,33 +4825,3 @@ body.is-menu-open {
 
 
 }
-/* Micro.blog gallery: an even grid without Masonry positioning or overhang. */
-.photo-feed {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.photo-feed .grid-item,
-.photo-feed .grid-sizer {
-    width: auto;
-}
-
-.photo-feed .photo-card {
-    height: 100%;
-    margin: 0;
-}
-
-.photo-feed .post-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-}
-
-@media (max-width: 760px) {
-    .photo-feed { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (max-width: 460px) {
-    .photo-feed { grid-template-columns: 1fr; }
-}

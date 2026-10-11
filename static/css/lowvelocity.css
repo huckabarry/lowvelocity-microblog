@@ -38,3 +38,17 @@ html[data-theme] { --color-link:var(--color-accent); --color-quote:var(--color-a
 .post-conversation textarea { width:100%; min-height:6rem; }
 .post-conversation button, .post-conversation input[type="submit"] { cursor:pointer; }
 .post-conversation :is(a,button,input,textarea):focus-visible { outline:2px solid var(--color-accent); outline-offset:3px; }
+
+/* Uncropped grid fallback; JavaScript packs cards into the shortest column. */
+.photo-feed { --photo-columns:3; --photo-gap:10px; display:grid; grid-template-columns:repeat(var(--photo-columns),minmax(0,1fr)); gap:var(--photo-gap); align-items:start; }
+.photo-feed .grid-item { width:auto; min-width:0; }
+.photo-feed .photo-card { margin:0; }
+.photo-feed .post-image { display:block; width:100%; height:auto; aspect-ratio:auto; object-fit:contain; }
+.photo-feed.is-masonry { display:block; position:relative; }
+.photo-feed.is-masonry .grid-item { position:absolute; top:0; left:0; }
+.photo-feed .post-caption { pointer-events:none; }
+.photo-feed .photo-card:focus-within .post-caption { opacity:1; }
+.photo-feed .post-link:focus-visible { display:block; outline:3px solid var(--color-accent); outline-offset:-3px; }
+@media (max-width:760px) { .photo-feed { --photo-columns:2; } }
+@media (max-width:460px) { .photo-feed { --photo-columns:1; } }
+@media (hover:none) { .photo-feed .post-caption { opacity:1; } }

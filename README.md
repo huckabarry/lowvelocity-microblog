@@ -62,4 +62,4 @@ Built successfully with Hugo 0.117.0. Generated HTML checks verified article/upd
 
 ## Remaining hosted checks
 
-Validate the selected Hugo version, imported assets, menus, native feeds, platform metadata, and real content on a Micro.blog test blog. Search, Ghost membership, middleware imports, custom feeds, maps, and AT Protocol engagement are outside this initial visual port. Gallery currently uses the prototype's even grid rather than Ghost's masonry layout.
+Validate the selected Hugo version, imported assets, menus, native feeds, platform metadata, and real content on a Micro.blog test blog. Search, Ghost membership, middleware imports, custom feeds, maps, and AT Protocol engagement are outside this initial visual port. Gallery preserves image proportions and packs each image into the shortest available column (three desktop columns, two on smaller screens, one on phones). It repacks on image load and resize; without JavaScript it falls back to an uncropped grid. Keyboard focus and touch reveal the captions.
