@@ -4,11 +4,13 @@
 {{ else }}
   {{ partial "page-intro.html" . }}
   {{ $posts := where .Site.Pages.ByDate.Reverse "Type" "post" }}
-  {{ if eq .RelPermalink "/field-notes/" }}{{ $items := where $posts "Params.categories" "intersect" (slice "Field Notes" "Urbanism" "Housing" "Transportation" "Public Finance") }}<section class="cactus-section archive-section">{{ partial "post-list.html" $items }}</section>
+  {{ $collections := partial "collections.html" . }}
+  {{ if or (eq .RelPermalink "/field-notes/") (eq .RelPermalink "/posts/") }}<section class="cactus-section archive-section">{{ partial "post-list.html" $collections.articles }}</section>
+  {{ else if or (eq .RelPermalink "/now/") (eq .RelPermalink "/updates/") }}{{ partial "updates.html" $collections.updates }}
   {{ else if eq .RelPermalink "/gallery/" }}{{ partial "gallery.html" (dict "Page" . "Posts" (where $posts "Params.categories" "intersect" (slice "Gallery" "Photography"))) }}
   {{ else if eq .RelPermalink "/listening/" }}{{ partial "cards.html" (where $posts "Params.categories" "intersect" (slice "Listening")) }}
   {{ else if eq .RelPermalink "/check-ins/" }}{{ $items := where $posts "Params.categories" "intersect" (slice "Check-ins") }}<section class="cactus-section archive-section">{{ partial "post-list.html" $items }}</section>
-  {{ else if eq .RelPermalink "/posts/" }}{{ $scratch := newScratch }}{{ $scratch.Set "items" (slice) }}{{ range $posts }}{{ $categories := .Params.categories | default (slice) }}{{ if not (or (in $categories "Listening") (in $categories "Check-ins")) }}{{ $scratch.Add "items" (slice .) }}{{ end }}{{ end }}<section class="cactus-section archive-section">{{ partial "post-list.html" ($scratch.Get "items") }}</section>
+
   {{ end }}
 {{ end }}
 {{ end }}

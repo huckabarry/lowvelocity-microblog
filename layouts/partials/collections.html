@@ -1,0 +1,15 @@
+{{/* One exclusive classification for both article and update views. */}}
+{{ $articles := slice }}{{ $updates := slice }}
+{{ range where .Site.RegularPages.ByDate.Reverse "Type" "post" }}
+  {{ $categories := apply (.Params.categories | default (slice)) "lower" "." }}
+  {{ if not (or (in $categories "listening") (in $categories "check-ins")) }}
+    {{ if in $categories "updates" }}
+      {{ $updates = $updates | append . }}
+    {{ else if or (in $categories "field notes") (ne (trim .Title " \t\r\n") "") }}
+      {{ $articles = $articles | append . }}
+    {{ else }}
+      {{ $updates = $updates | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return (dict "articles" $articles "updates" $updates) }}

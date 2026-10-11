@@ -2,12 +2,12 @@
   <div class="cactus-brand-wrap">
     <a class="cactus-brand" href="{{ .Site.BaseURL }}" aria-label="{{ .Site.Title }}"><span class="cactus-brand-title">{{ .Site.Title }} <span aria-hidden="true">//</span></span></a>
     <nav class="cactus-nav" id="navigation-menu" aria-label="Main menu">
-      {{ range .Site.Menus.main }}
+      <ul role="list">{{ range .Site.Menus.main }}
         {{ $destination := .URL }}
         {{ with .Page }}{{ with .Params.redirect_url }}{{ $destination = . }}{{ end }}{{ end }}
-        <a href="{{ $destination | relLangURL | safeURL }}">{{ .Name }}</a>
-      {{ end }}
+        <li><a href="{{ $destination | relLangURL | safeURL }}">{{ .Name }}</a></li>
+      {{ end }}</ul>
     </nav>
   </div>
-  <div class="cactus-actions"><button class="cactus-icon-button" type="button" aria-label="Toggle color theme" data-theme-toggle>◐</button><button class="cactus-icon-button cactus-menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navigation-menu" data-menu-toggle></button></div>
+  <div class="cactus-actions"><button class="cactus-icon-button" type="button" aria-label="Toggle color theme" data-theme-toggle><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></svg></button><button class="cactus-icon-button cactus-menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navigation-menu" data-menu-toggle></button></div>
 </header>

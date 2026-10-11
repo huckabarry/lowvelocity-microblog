@@ -4,10 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if not .IsHome }}{{ .Title }} // {{ end }}{{ .Site.Title }}</title>
-  <script>(function(){var s=localStorage.getItem('cactus-theme');var p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s||p)})();</script>
-  {{ partial "microblog_head.html" . }}
+  <script>(function(){var s;try{s=localStorage.getItem('cactus-theme')}catch(e){};var p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s||p)})();</script>
   <link rel="stylesheet" href="{{ "css/screen.css" | relURL }}">
-  <style>:root{--color-accent:{{ .Site.Params.accent_color | default "#b7db57" }};--color-link:var(--color-accent);--color-quote:var(--color-accent)}</style>
+  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=fira-sans:400,500,600">
+  <link rel="stylesheet" href="{{ "css/lowvelocity.css" | relURL }}">
+
+  {{ partial "microblog_head.html" . }}
 </head>
 <body class="{{ if .IsPage }}site-post-body{{ else }}site-list-body{{ end }}">
   <a class="skip-link" href="#main">Skip to content</a>

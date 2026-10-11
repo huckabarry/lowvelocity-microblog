@@ -1,1 +1,9 @@
-{{ define "main" }}<header class="archive-header"><h1 class="cactus-title">{{ .Title }}</h1></header><section class="cactus-section archive-section">{{ partial "post-list.html" .Pages.ByDate.Reverse }}</section>{{ end }}
+{{ define "main" }}
+<header class="archive-header"><h1 class="cactus-title">{{ .Title }}</h1></header>
+{{ $collections := partial "collections.html" . }}
+{{ $articles := intersect $collections.articles .Pages }}
+{{ $updates := intersect $collections.updates .Pages }}
+{{ if $articles }}<section class="cactus-section archive-section"><h2 class="cactus-title cactus-title-small">Field Notes</h2>{{ partial "post-list.html" $articles }}</section>{{ end }}
+{{ if $updates }}<section class="cactus-section archive-section"><h2 class="cactus-title cactus-title-small">Updates</h2>{{ partial "updates.html" $updates }}</section>{{ end }}
+{{ if not (or $articles $updates) }}<section class="cactus-section archive-section">{{ partial "post-list.html" .Pages.ByDate.Reverse }}</section>{{ end }}
+{{ end }}

@@ -1,0 +1,24 @@
+/* Live Low Velocity settings, verified October 2026. */
+:root {
+  --space-shell: min(calc(100% - 2rem), 550px);
+  --font-body: "IBM Plex Mono", monospace;
+  --font-heading: "Fira Sans", sans-serif;
+  --body-font-style: italic;
+  --navigation-font-weight: 600;
+  --color-global-bg: #171717;
+  --color-global-text: #e2e2e2;
+  --color-accent-2: #e2e2e2;
+  --color-accent: #75c2c1;
+  --color-link: var(--color-accent);
+  --color-quote: var(--color-accent);
+}
+html[data-theme="dark"] { --color-global-bg:#171717; --color-global-text:#e2e2e2; --color-accent-2:#e2e2e2; --color-accent:#75c2c1; }
+html[data-theme="light"] { --color-global-bg:#fff; --color-global-text:#3d4044; --color-accent-2:#3d4044; --color-accent:#d45478; }
+.updates-feed { display:grid; gap:2.5rem; }
+.update-entry { min-width:0; padding-bottom:2rem; border-bottom:1px dotted var(--color-rule); }
+.update-entry .cactus-meta { margin-bottom:1rem; }
+.update-title { font-size:1.25rem; margin-bottom:1rem; }
+.update-entry .cactus-content { overflow-wrap:anywhere; }
+.update-entry .cactus-content > :first-child { margin-top:0; }
+html[data-theme] { --color-link:var(--color-accent); --color-quote:var(--color-accent); }
+.update-title, .update-title a { color:var(--color-global-text); }

@@ -1,0 +1,9 @@
+<section class="updates-feed h-feed" aria-label="Short updates">
+{{ range . }}
+<article class="update-entry h-entry">
+  <header class="cactus-meta"><a class="u-url" href="{{ .Permalink }}"><time class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date.Format "02 Jan 2006 · 15:04" }}</time></a></header>
+  {{ if .Title }}<h2 class="update-title p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>{{ end }}
+  <div class="cactus-content e-content">{{ .Content }}</div>
+</article>
+{{ else }}<p>No updates are published yet.</p>{{ end }}
+</section>

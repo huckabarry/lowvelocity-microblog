@@ -1,0 +1,6 @@
+{{ define "main" }}
+<header class="archive-header"><h1 class="cactus-title">Archive</h1></header>
+{{ $collections := partial "collections.html" . }}
+<section class="cactus-section archive-section"><h2 class="cactus-title cactus-title-small">Field Notes</h2>{{ partial "post-list.html" $collections.articles }}</section>
+<section class="cactus-section archive-section"><h2 class="cactus-title cactus-title-small">Updates</h2>{{ partial "updates.html" $collections.updates }}</section>
+{{ end }}

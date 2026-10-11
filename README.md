@@ -1,21 +1,55 @@
 # Low Velocity for Micro.blog
 
-A Hugo/Micro.blog port of the Low Velocity Ghost theme.
+A Hugo/Micro.blog port of the Low Velocity Ghost theme. The homepage and article design use the Ghost theme CSS plus the live site's October 2026 typography and palette.
 
-## Editable pages and categories
+## Long and short posts
 
-Create the following pages in Micro.blog. Their body text remains editable in Micro.blog; the theme appends the matching post collection.
+Classification is shared across the homepage, Field Notes, Posts, Updates, and archive views:
 
-| Page | URL | Categories used |
+1. Listening and Check-ins categories retain their dedicated collections.
+2. An Updates category puts a post in Updates, even if it has a title or Field Notes category.
+3. Otherwise, a title or Field Notes category puts a post in Field Notes.
+4. Remaining untitled posts go to Updates.
+
+Category matching for this classification is case-insensitive. Word count does not decide placement. Topic categories such as Urbanism never turn an untitled update into an article. Gallery can show photographs from either stream.
+
+The homepage shows only Field Notes in the original date/title list. Updates shows full short posts. Individual permalinks still work for both. Category pages separate articles from updates. Native RSS/JSON feeds and Micro.blog timeline behavior remain platform-managed; this is website separation, not a change to syndication.
+
+## Pages to create in Micro.blog
+
+| Page | URL | Display |
 | --- | --- | --- |
-| Posts | `/posts/` | All regular posts |
-| Field Notes | `/field-notes/` | Field Notes, Urbanism, Housing, Transportation, Public Finance |
-| Gallery | `/gallery/` | Gallery, Photography |
-| Listening | `/listening/` | Listening |
-| Check-ins | `/check-ins/` | Check-ins |
+| Field Notes | `/field-notes/` | Long-form article list |
+| Updates | `/now/` | Full short posts |
+| Gallery | `/gallery/` | Gallery / Photography categories |
+| Listening | `/listening/` | Listening category |
+| Check-ins | `/check-ins/` | Check-ins category |
+| About | `/about/` | Editable page body |
 
-Categories are regular Micro.blog categories. The theme does not require custom front matter.
+`/updates/` also works for Updates, and `/posts/` shows articles only. Add the desired pages to Micro.blog navigation. Page introductions remain editable in Micro.blog. No custom post front matter is required.
 
-## Deferred from the Ghost site
+## GitHub installation
 
-Middleware imports, custom feeds, maps, AT Protocol engagement, and special record handling are intentionally outside this initial test theme.
+Repository: https://github.com/huckabarry/lowvelocity-microblog
+
+The theme files are at the repository root, ready for Micro.blog to import. Local sample content (`exampleSite/`) and review screenshots (`review/`) are excluded from Git. Select/install the repository through Micro.blog's custom theme or plug-in interface and use its GitHub refresh control for updates. Keep edits in GitHub to avoid overwritten web-editor changes.
+
+The production layouts deliberately do not override `microblog_head.html`: Micro.blog supplies current platform metadata and integration hooks. The example site supplies a local preview stub only. Binary assets may be skipped by the theme importer; active typography uses externally hosted IBM Plex Mono and Fira Sans. Verify fonts on the hosted test blog.
+
+## Local preview
+
+The original development folder includes an untracked `exampleSite/` fixture. With that fixture and Hugo 0.117.0:
+
+```sh
+hugo server --source exampleSite --themesDir ../.. --theme microblog-theme --buildFuture
+```
+
+Run from this theme directory. `--buildFuture` allows the dated sample posts to render regardless of the local clock. For a fresh clone, use a Micro.blog Markdown/theme export as your local test site. The local samples exercise a titled article, an untitled topical update, an explicitly titled update, photos, listening, and check-ins.
+
+## Validation completed
+
+Built successfully with Hugo 0.117.0. Generated HTML checks verified article/update isolation, titled update overrides, category separation, full short-post content, and individual permalinks. Browser checks covered desktop homepage/article, a 390px mobile article and Updates page, menu operation, and light/dark switching. Screenshots are in `review/`. This uses sample content; hosted compatibility is not yet verified.
+
+## Remaining hosted checks
+
+Validate the selected Hugo version, imported assets, menus, native feeds, platform metadata, and real content on a Micro.blog test blog. Search, Ghost membership, middleware imports, custom feeds, maps, and AT Protocol engagement are outside this initial visual port. Gallery currently uses the prototype's even grid rather than Ghost's masonry layout.
