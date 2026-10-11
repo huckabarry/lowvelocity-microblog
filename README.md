@@ -36,6 +36,16 @@ The theme files are at the repository root, ready for Micro.blog to import. Loca
 
 The production layouts deliberately do not override `microblog_head.html`: Micro.blog supplies current platform metadata and integration hooks. The example site supplies a local preview stub only. Binary assets may be skipped by the theme importer; active typography uses externally hosted IBM Plex Mono and Fira Sans. Verify fonts on the hosted test blog.
 
+## Conversations and cross-post links
+
+After refreshing the theme from GitHub, enable **Include conversation on post page** under Micro.blog's Design settings. The theme respects `include_conversation`; it does not force it on. Individual article and short-post permalinks then load Micro.blog's native Conversation.js. Lists, archive pages, and ordinary pages do not load it.
+
+Micro.blog supplies the collected replies and comment interface. Connect cross-posting/federation in Micro.blog to receive supported social replies. Webmentions supported by Micro.blog can appear too. This theme does not independently scrape social networks or import existing threads.
+
+When Micro.blog supplies cross-post metadata, an **Also on** row links to Bluesky (`bluesky.link`), Mastodon (`mastodon.hostname`, `username`, `id`), and Threads (`threads.url`). These links carry `u-syndication` inside the original post's `h-entry`. Missing metadata produces no link. Threads link support does not imply Threads reply collection.
+
+References: [Conversation.js](https://help.micro.blog/t/replies-with-conversation-js/67), [cross-post metadata](https://help.micro.blog/t/cross-posting-in-front-matter/1889).
+
 ## Local preview
 
 The original development folder includes an untracked `exampleSite/` fixture. With that fixture and Hugo 0.117.0:

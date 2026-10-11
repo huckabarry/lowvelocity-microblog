@@ -1,0 +1,7 @@
+{{/* Use Micro.blog's Design setting. Keep the native script synchronous: it inserts markup here. */}}
+{{ if and (eq .Type "post") .Site.Params.include_conversation }}
+<div class="post-conversation">
+  <script src="https://micro.blog/conversation.js?url={{ .Permalink }}"></script>
+  <noscript><p>Enable JavaScript to view the conversation.</p></noscript>
+</div>
+{{ end }}

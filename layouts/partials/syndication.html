@@ -1,0 +1,19 @@
+{{/* Links belong inside the original post's h-entry. Only render known cross-posts. */}}
+{{ $links := slice }}
+{{ with .Params.bluesky }}
+  {{ with .link }}{{ $links = $links | append (dict "name" "Bluesky" "url" .) }}{{ end }}
+{{ end }}
+{{ with .Params.mastodon }}
+  {{ if and .hostname .username .id }}
+    {{ $links = $links | append (dict "name" "Mastodon" "url" (printf "https://%s/@%s/%s" .hostname .username (string .id))) }}
+  {{ end }}
+{{ end }}
+{{ with .Params.threads }}
+  {{ with .url }}{{ $links = $links | append (dict "name" "Threads" "url" .) }}{{ end }}
+{{ end }}
+{{ with $links }}
+<nav class="post-syndication" aria-label="This post on other services">
+  <span>Also on</span>
+  <ul role="list">{{ range . }}<li><a class="u-syndication" href="{{ .url }}" rel="syndication">{{ .name }}</a></li>{{ end }}</ul>
+</nav>
+{{ end }}
