@@ -11,17 +11,8 @@
   <aside class="lv-checkin" aria-label="Check-in location">
     <div class="lv-checkin-heading"><span aria-hidden="true">⌖</span> CHECK-IN</div>
     {{ with $name }}<div class="lv-checkin-place">{{ if $url }}<a href="{{ $url | safeURL }}">{{ . }}</a>{{ else }}{{ . }}{{ end }}</div>{{ end }}
-    {{/* Follow the installed OSM plugin's iframe approach; no external JS or static map API. */}}
-    {{ $latitude := float $lat }}
-    {{ $longitude := float $lon }}
-    {{ $span := 0.012 }}
-    {{ $left := sub $longitude $span }}
-    {{ $right := add $longitude $span }}
-    {{ $bottom := sub $latitude 0.006 }}
-    {{ $top := add $latitude 0.006 }}
-    {{ $embed := printf "https://www.openstreetmap.org/export/embed.html?bbox=%.6f%%2C%.6f%%2C%.6f%%2C%.6f&layer=mapnik&marker=%.6f%%2C%.6f" $left $bottom $right $top $latitude $longitude }}
-    <div class="lv-checkin-map">
-      <iframe src="{{ $embed | safeURL }}" title="Map showing check-in location" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="lv-checkin-map" data-lat="{{ $lat }}" data-lon="{{ $lon }}" role="region" aria-label="Map of check-in location">
+      <a class="lv-checkin-map-fallback" href="{{ $mapURL | safeURL }}" target="_blank" rel="noopener noreferrer">View location on OpenStreetMap ↗</a>
     </div>
     <div class="lv-checkin-footer"><span>{{ $lat }}, {{ $lon }}</span><a href="{{ $mapURL | safeURL }}" target="_blank" rel="noopener noreferrer">View map ↗</a></div>
   </aside>
@@ -35,8 +26,34 @@
 .lv-checkin-place a{color:inherit;text-decoration:none}
 .lv-checkin-map{display:block;background:#e7e8e5;line-height:0}
 .lv-checkin-map{height:240px;position:relative}
-.lv-checkin-map iframe{display:block;width:100%;height:100%;border:0}
+.lv-checkin-map-fallback{display:flex;align-items:center;justify-content:center;height:100%;font-size:.85rem}
+.lv-checkin-map .leaflet-container{font-family:inherit}
 @media(max-width:600px){.lv-checkin-map{height:210px}}
 .lv-checkin-footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.7rem 1rem;font-size:.75rem;opacity:.75}
 </style>
 
+{{ if and $lat $lon }}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.querySelector('.lv-checkin-map[data-lat][data-lon]');
+  if (!el) return;
+  var lat = Number(el.dataset.lat), lon = Number(el.dataset.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+  function init() {
+    if (!window.L) return;
+    el.querySelector('.lv-checkin-map-fallback').remove();
+    var map = L.map(el, {scrollWheelZoom:false}).setView([lat,lon],14);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom:19,
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    L.marker([lat,lon]).addTo(map);
+    setTimeout(function(){map.invalidateSize()},100);
+  }
+  if (window.L) init();
+  else window.addEventListener('load', init, {once:true});
+});
+</script>
+{{ end }}
