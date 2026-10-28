@@ -45,9 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!window.L) return;
     el.querySelector('.lv-checkin-map-fallback').remove();
     var map = L.map(el, {scrollWheelZoom:false}).setView([lat,lon],14);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      subdomains:'abcd',
       maxZoom:19,
-      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }).addTo(map);
     L.marker([lat,lon]).addTo(map);
     setTimeout(function(){map.invalidateSize()},100);
