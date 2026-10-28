@@ -1,0 +1,30 @@
+{{/* Sunlit/Micro.blog location metadata, with legacy parameter fallback. */}}
+{{ $loc := .Params.location | default dict }}
+{{ $name := index $loc "name" | default "" }}
+{{ $url := index $loc "url" | default "" }}
+{{ $lat := index $loc "latitude" | default .Params.location_latitude }}
+{{ $lon := index $loc "longitude" | default .Params.location_longitude }}
+{{ if and $lat $lon }}
+  {{ $lat = printf "%v" $lat }}
+  {{ $lon = printf "%v" $lon }}
+  {{ $mapURL := printf "https://www.openstreetmap.org/?mlat=%s&mlon=%s#map=15/%s/%s" $lat $lon $lat $lon }}
+  <aside class="lv-checkin" aria-label="Check-in location">
+    <div class="lv-checkin-heading"><span aria-hidden="true">⌖</span> CHECK-IN</div>
+    {{ with $name }}<div class="lv-checkin-place">{{ if $url }}<a href="{{ $url | safeURL }}">{{ . }}</a>{{ else }}{{ . }}{{ end }}</div>{{ end }}
+    <a class="lv-checkin-map" href="{{ $mapURL | safeURL }}" target="_blank" rel="noopener noreferrer" aria-label="View check-in location on OpenStreetMap">
+      <img loading="lazy" alt="Map of check-in location" src="https://staticmap.openstreetmap.de/staticmap.php?center={{ $lat }},{{ $lon }}&zoom=14&size=640x240&markers={{ $lat }},{{ $lon }},red-pushpin">
+    </a>
+    <div class="lv-checkin-footer"><span>{{ $lat }}, {{ $lon }}</span><a href="{{ $mapURL | safeURL }}" target="_blank" rel="noopener noreferrer">View map ↗</a></div>
+  </aside>
+{{ else if $name }}
+  <aside class="lv-checkin" aria-label="Check-in location"><div class="lv-checkin-heading">⌖ CHECK-IN</div><div class="lv-checkin-place">{{ $name }}</div></aside>
+{{ end }}
+<style>
+.lv-checkin{margin:1.5rem 0;border:1px solid var(--border-color,#d6d6d6);border-radius:8px;overflow:hidden}
+.lv-checkin-heading{padding:1rem 1rem .25rem;font-size:.72rem;letter-spacing:.12em;font-weight:700;opacity:.7}
+.lv-checkin-place{padding:0 1rem 1rem;font-size:1.15rem;font-weight:600}
+.lv-checkin-place a{color:inherit;text-decoration:none}
+.lv-checkin-map{display:block;background:#e7e8e5;line-height:0}
+.lv-checkin-map img{display:block;width:100%;height:auto;aspect-ratio:8/3;object-fit:cover}
+.lv-checkin-footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.7rem 1rem;font-size:.75rem;opacity:.75}
+</style>
