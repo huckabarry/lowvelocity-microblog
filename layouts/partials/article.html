@@ -7,6 +7,7 @@
     </div>
     {{ with .Params.photos }}{{ range first 1 . }}<figure class="cactus-feature-image"><img class="u-photo" src="{{ . }}" alt=""></figure>{{ end }}{{ end }}
   </header>
+  {{ if or .Params.location .Params.location_latitude }}{{ partial "checkin.html" . }}{{ end }}
   <div class="cactus-content e-content">{{ .Content }}</div>
   {{ with .Params.categories }}<footer class="post-tags">{{ range . }}<a href="{{ (printf "categories/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>{{ end }}</footer>{{ end }}
   {{ partial "syndication.html" . }}
