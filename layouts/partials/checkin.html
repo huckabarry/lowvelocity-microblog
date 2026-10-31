@@ -28,6 +28,8 @@
 .lv-checkin-map{height:240px;position:relative}
 .lv-checkin-map-fallback{display:flex;align-items:center;justify-content:center;height:100%;font-size:.85rem}
 .lv-checkin-map .leaflet-container{font-family:inherit}
+/* Soften only the basemap; keep markers, controls, and attribution unfiltered. */
+.lv-checkin-map .leaflet-tile-pane{filter:saturate(.25) contrast(.9) brightness(1.05)}
 @media(max-width:600px){.lv-checkin-map{height:210px}}
 .lv-checkin-footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.7rem 1rem;font-size:.75rem;opacity:.75}
 </style>
